@@ -4,32 +4,33 @@ import CommunityPost from '../components/CommunityPost';
 import LoadingSpinner from '../components/shared/LoadingSpinner';
 
 function Home() {
-    const [localPosts] = useLocalStorage('aura_posts', []);
-    const { data: apiPosts, loading, error } = useFetch('https://jsonplaceholder.typicode.com/posts?_limit=3');
+  const [localPosts] = useLocalStorage('aura_posts', []);
+  const { data: trends, loading, error } = useFetch('https://jsonplaceholder.typicode.com/posts?_limit=3');
 
-    return (
-        <div className="home-feed">
-            <h2 className="vogue-title">your journal</h2>
-            {localPosts.map(post => <CommunityPost key={post.id} post={post} />)}
+  return (
+    <div className="home-container">
+      <h2 className="vogue-title">editorial journal</h2>
+      <div className="posts-grid">
+        {localPosts.map(post => <CommunityPost key={post.id} post={post} />)}
+      </div>
 
-            <hr style={{ margin: '40px 0', border: '0.5px solid #eee' }} />
-
-            <h2 className="vogue-title">global inspiration</h2>
-            
-            {loading && <LoadingSpinner />}
-            {error && <p className="error-text">Unable to load trends: {error}</p>}
-            
-            <div className="api-trends">
-                {apiPosts && apiPosts.map(item => (
-                    <div key={item.id} className="trend-card" style={{ marginBottom: '20px', padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '15px' }}>
-                        <h4 style={{ textTransform: 'uppercase', fontSize: '0.7rem', color: '#6c5ce7' }}>Trending Topic</h4>
-                        <h3 style={{ fontFamily: 'Playfair Display', fontSize: '1.2rem' }}>{item.title}</h3>
-                        <p style={{ color: '#666', fontSize: '0.9rem' }}>{item.body}</p>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+      <hr className="vogue-divider" />
+      <h3 className="vogue-subtitle">global inspiration</h3>
+      
+      {loading && <LoadingSpinner />}
+      {error && <p className="error-text">Trends unavailable: {error}</p>}
+      
+      <div className="trends-list">
+        {trends && trends.map(item => (
+          <div key={item.id} className="trend-item">
+            <h4>{item.title}</h4>
+            <p>{item.body.slice(0, 50)}...</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default Home;
+ 
