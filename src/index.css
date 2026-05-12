@@ -1,0 +1,332 @@
+/* --- VIBRANT & MAXIMALIST GLOBAL STYLES --- */
+:root {
+  /* Dynamic Background Gradient (Sunburst Yellow to Sky Blue) */
+  --bg-gradient: linear-gradient(135deg, #FFEFBA 0%, #FFFFFF 50%, #89f7fe 100%);
+  
+  /* Primary Vibrant Colors */
+  --aura-magenta: #FF00FF;
+  --aura-cyan: #00FFFF;
+  --aura-coral: #FF7F50;
+  --aura-sapphire: #0000CD;
+  --aura-gold: #FFD700;
+  --aura-teal: #008080;
+  
+  /* Text and Accents */
+  --text-primary: #111111;
+  --vogue-gray: #f4f4f4;
+  --card-border: rgba(0, 0, 0, 0.05);
+  
+  /* Contrasting Secondary Palette for cards/accents */
+  --card-accent-red: #DC143C;
+  --card-accent-green: #32CD32;
+  --card-accent-purple: #8A2BE2;
+  
+  --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  --rainbow-transition: border-color 0.5s linear;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- TYPOGRAPHY --- */
+h1, h2, .vogue-title {
+  font-family: 'Playfair Display', serif;
+  text-transform: lowercase;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+/* Dynamic Title: Magenta with Cyan Outline */
+.vogue-header h1 {
+  font-size: 3rem;
+  margin-bottom: 30px;
+  color: var(--aura-magenta);
+  text-shadow: 
+    -1px -1px 0 var(--aura-cyan),  
+     1px -1px 0 var(--aura-cyan),
+    -1px  1px 0 var(--aura-cyan),
+     1px  1px 0 var(--aura-cyan),
+     0px 0px 5px rgba(255, 0, 255, 0.3); /* Soft Glow */
+  transition: var(--transition);
+}
+
+.vogue-header h1:hover {
+  text-shadow: 
+    -2px -2px 0 var(--aura-cyan),  
+     2px -2px 0 var(--aura-cyan),
+    -2px  2px 0 var(--aura-cyan),
+     2px  2px 0 var(--aura-cyan),
+     0px 0px 10px rgba(0, 255, 255, 0.5); /* Intense Glow */
+}
+
+/* --- LAYOUT & GRID --- */
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.vogue-header {
+  text-align: center;
+  padding: 60px 0 20px;
+}
+
+.main-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 60px;
+  margin-top: 40px;
+  min-height: 80vh;
+}
+
+@media (max-width: 900px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar { display: none; }
+}
+
+/* --- NAVIGATION --- */
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  border-bottom: 1px solid var(--vogue-gray);
+  padding-bottom: 20px;
+}
+
+.main-nav a {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: #777; /* De-emphasized non-active */
+  transition: var(--transition);
+  position: relative;
+}
+
+/* Active State Colors */
+.main-nav a.active {
+  font-weight: 700;
+}
+
+/* "JOURNAL" (now Active) -> Sapphire Blue */
+.main-nav a.active[href="/"] {
+  color: var(--aura-sapphire);
+}
+
+/* "SHARE LOOK" (now Active) -> Coral Red */
+.main-nav a.active[href="/create"] {
+  color: var(--aura-coral);
+}
+
+/* Hover State -> Gold */
+.main-nav a:hover {
+  color: var(--aura-gold) !important;
+}
+
+/* Shimmering Rainbow Underline (Active) */
+.main-nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -21px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    #ff0000 0%, 
+    #ff7f00 14%, 
+    #ffff00 28%, 
+    #00ff00 42%, 
+    #0000ff 57%, 
+    #4b0082 71%, 
+    #9400d3 100%);
+  background-size: 200% auto;
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: 0 0; }
+}
+
+/* --- CONTENT AREA & VIBRANT CARDS --- */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.post-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  transition: var(--transition);
+}
+
+.post-card:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transform: translateY(-5px);
+}
+
+.post-card img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.post-card h3 {
+  margin: 15px 0 5px;
+  font-size: 1.2rem;
+  font-family: 'Playfair Display', serif;
+  color: var(--text-primary);
+}
+
+/* Individual Card Accent Themes (Assign these via JS or nth-child) */
+.post-card:nth-child(3n+1) { border-color: var(--card-accent-red); }
+.post-card:nth-child(3n+2) { border-color: var(--card-accent-green); }
+.post-card:nth-child(3n+3) { border-color: var(--card-accent-purple); }
+
+/* --- FORMS --- */
+.vogue-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 500px;
+}
+
+.vogue-form input, .vogue-form textarea {
+  padding: 15px;
+  border: 1px solid var(--vogue-gray);
+  border-radius: 4px;
+  background: white;
+  font-family: inherit;
+  font-size: 14px;
+  transition: var(--transition);
+}
+
+.vogue-form input:focus, .vogue-form textarea:focus {
+  outline: none;
+  border-color: var(--aura-cyan);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+/* Publish Button -> Vibrant Cyan/Blue Shimmer */
+.publish-btn {
+  background: linear-gradient(45deg, var(--aura-cyan) 0%, var(--aura-sapphire) 100%);
+  color: #111;
+  font-weight: 700;
+  padding: 15px;
+  border: none;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: var(--transition);
+}
+
+.publish-btn:hover {
+  letter-spacing: 4px;
+  box-shadow: 0 6px 12px rgba(0, 255, 255, 0.4);
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+  border-left: 1px solid var(--vogue-gray);
+  padding-left: 30px;
+  position: relative;
+}
+
+/* Vertical Sidebar Gradient and Confetti Accent */
+.sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--aura-cyan) 0%, var(--aura-magenta) 50%, var(--aura-gold) 100%);
+}
+
+.sidebar h3 {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  color: var(--aura-teal);
+}
+
+.advice-text {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #444;
+}
+
+/* --- FOOTER --- */
+footer {
+  text-align: center;
+  padding: 80px 0 40px;
+  font-size: 10px;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.discovery-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.shuffle-btn {
+  background: var(--aura-magenta);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 20px rgba(255, 0, 255, 0.3);
+  transition: var(--transition);
+}
+
+.shuffle-btn:hover {
+  transform: scale(1.1) rotate(-2deg);
+  background: var(--aura-cyan);
+  color: #111;
+}
+
+.discovery-card {
+  max-width: 400px;
+  margin: 0 auto;
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  border: 4px solid var(--aura-gold);
+}
+
+.animate-pop {
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
